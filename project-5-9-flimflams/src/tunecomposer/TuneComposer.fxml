@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="scrollPane" maxWidth="2000.0" prefWidth="2000.0" stylesheets="@TuneComposer.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tunecomposer.FXMLController">
+    <top>
+        <MenuBar prefHeight="29.0" prefWidth="2000.0">
+          <menus>
+            <Menu text="File">
+              <items>
+                  <MenuItem fx:id="about" mnemonicParsing="false" onAction="#handleAboutMenuItemAction" text="About" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="newButton" mnemonicParsing="false" onAction="#handleNewMenuItemAction" text="New" />
+                  <MenuItem fx:id="openButton" mnemonicParsing="false" onAction="#handleOpenMenuItemAction" text="Open..." />
+                  <MenuItem fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveMenuItemAction" text="Save" />
+                  <MenuItem fx:id="saveAsButton" mnemonicParsing="false" onAction="#handleSaveAsMenuItemAction" text="Save As..." />
+                  <MenuItem fx:id="exportButton" mnemonicParsing="false" onAction="#handleExportMenuItemAction" text="Export..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem onAction="#handleExitMenuItemAction" text="Exit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                </MenuItem>
+              </items>
+            </Menu>
+            <Menu text="Actions">
+                <items>
+                  <MenuItem fx:id="play" onAction="#handlePlayScaleButtonAction" text="Play">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem fx:id="stop" onAction="#handleStopPlayingButtonAction" text="Stop">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                </items>
+            </Menu>
+            <Menu text="Edit">
+                <items>
+                    <MenuItem fx:id="generateMIDI" onAction="#generateMIDI" text="Generate MIDI">
+                    </MenuItem>
+                    <MenuItem fx:id="selectAll" onAction="#handleSelectMenuItemAction" text="Select All">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                    </MenuItem>
+                    <MenuItem fx:id="deleteAll" onAction="#handleDeleteMenuItemAction" text="Delete">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="DELETE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                    </MenuItem>
+                    <MenuItem fx:id="group" onAction="#handleGroup" text="Group">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                    </MenuItem>
+                    <MenuItem fx:id="ungroup" onAction="#handleUngroup" text="Ungroup">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="U" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                    </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handleChangeInstrument" text="Change Instrument" />
+                    <SeparatorMenuItem />
+                    <MenuItem fx:id="undo" onAction="#handleUndo" text="Undo">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                    </MenuItem>
+                    <MenuItem fx:id="redo" onAction="#handleRedo" text="Redo">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                        </accelerator>
+                    </MenuItem>
+                    <SeparatorMenuItem />
+                    <MenuItem fx:id="cut" onAction="#handleCut" text="Cut">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                    </MenuItem>
+                    <MenuItem fx:id="copy" onAction="#handleCopy" text="Copy">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                    </MenuItem>
+                    <MenuItem fx:id="paste" onAction="#handlePaste" text="Paste">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                    </MenuItem>
+                </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <ScrollPane prefHeight="1280.0" prefWidth="6000.0">
+            <content>
+                <Pane fx:id="backgroundPane" prefHeight="1280" prefWidth="6000.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane fx:id="compositionPane" onMouseDragged="#handleDrag" onMousePressed="#handleClickStart" onMouseReleased="#handleClickEnd" prefHeight="1280" prefWidth="6000.0" />
+                    </children>
+                </Pane>
+            </content>
+        </ScrollPane>
+    </center>
+   <left>
+      <Pane fx:id="sideBarPane" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="236.0" prefWidth="220.0">
+                     <children>
+                        <Text fill="#666666" strokeType="OUTSIDE" strokeWidth="0.0" text="Default Note Duration" textAlignment="CENTER" wrappingWidth="199.4912109375">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Slider fx:id="durationSlider" max="205.0" min="5.0" onMouseReleased="#handleDurationSliderRelease" prefHeight="16.0" prefWidth="167.0" showTickLabels="true" value="100.0" />
+                        <Text fill="#666666" strokeType="OUTSIDE" strokeWidth="0.0" text="Play Speed" textAlignment="CENTER" wrappingWidth="199.4912109375">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Slider fx:id="speedSlider" max="8.0" min="0.25" onMouseReleased="#handleSpeedSliderRelease" prefHeight="16.0" prefWidth="167.0" value="1.0" />
+                        <Text fill="#666666" strokeType="OUTSIDE" strokeWidth="0.0" text="Volume" textAlignment="CENTER" wrappingWidth="199.4912109375">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Slider fx:id="volumeSlider" max="127" min="0.25" onMouseReleased="#handleVolumeSliderRelease" prefHeight="16.0" prefWidth="167.0" value="100.0" />
+                        <ToggleButton fx:id="nightModeToggle" mnemonicParsing="false" onAction="#handleNightModeToggle" text="Night Mode Toggle">
+                           <VBox.margin>
+                              <Insets left="25.0" top="20.0" />
+                           </VBox.margin></ToggleButton>
+                        <Button fx:id="reset" mnemonicParsing="false" onAction="#handleResetDefaults" prefHeight="26.0" prefWidth="141.0" text="Reset to Defaults" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets left="25.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                         
+                              <RadioButton id="piano" onAction="#handleInstrumentMenuItemAction" selected="true" text="Piano" userData="0">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="instrumentGroup" />
+                           </toggleGroup>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" top="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton id="harpsichord" onAction="#handleInstrumentMenuItemAction" text="Harpsicord" toggleGroup="$instrumentGroup" userData="1">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" top="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton id="marimba" onAction="#handleInstrumentMenuItemAction" text="Marimba" toggleGroup="$instrumentGroup" userData="2">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" top="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton id="churchOrgan" onAction="#handleInstrumentMenuItemAction" text="Organ" toggleGroup="$instrumentGroup" userData="3">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" top="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton id="accordion" onAction="#handleInstrumentMenuItemAction" text="Accordion" toggleGroup="$instrumentGroup" userData="4">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" top="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton id="guitar" onAction="#handleInstrumentMenuItemAction" text="Guitar" toggleGroup="$instrumentGroup" userData="5">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" top="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton id="violin" onAction="#handleInstrumentMenuItemAction" text="Violin" toggleGroup="$instrumentGroup" userData="6">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" top="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton id="frenchHorn" onAction="#handleInstrumentMenuItemAction" text="French Horn" toggleGroup="$instrumentGroup" userData="7">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" top="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </left>
+</BorderPane>
