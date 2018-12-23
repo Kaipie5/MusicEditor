@@ -1,1 +1,2 @@
 # MusicEditor
+A project allowing for midi data to be edited in a music editor. This was part of a team project for a software design class which involved exploration of software design patterns and working as a team on a project. The project has a number of features including dragging midi notes and playing the music you created in a variety of instruments. There is an additional feature which uses algorithms to randomly generate decent compositions.
